@@ -19,6 +19,7 @@ import SwiftyJSON
 import LoggerAPI
 import CloudFoundryEnv
 
+/// ルーティングを設定する
 public class Controller {
 
   let router: Router
@@ -40,7 +41,9 @@ public class Controller {
 
     // Serve static content from "public"
     router.all("/", middleware: StaticFileServer())
-
+    
+    router.post("/line/webhook", middleware: LineBotServer())
+    
     // Basic GET request
     router.get("/hello", handler: getHello)
 
