@@ -23,15 +23,24 @@ import CloudFoundryEnv
 import CloudFoundryDeploymentTracker
 
 do {
-  // HeliumLogger disables all buffering on stdout
-  HeliumLogger.use(LoggerMessageType.info)
-  let controller = try Controller()
-  Log.info("Server will be started on '\(controller.url)'.")
-  CloudFoundryDeploymentTracker(repositoryURL: "https://github.com/IBM-Bluemix/Kitura-Starter.git", codeVersion: nil).track()
-  Kitura.addHTTPServer(onPort: controller.port, with: controller.router)
-  // Start Kitura-Starter server
-  Kitura.run()
+    // HeliumLogger disables all buffering on stdout
+    let app = try? CloudFoundryEnv.getAppEnv()
+    
+    Log.info("\(app?.app)")
+    
+    HeliumLogger.use(LoggerMessageType.debug)
+    let controller = try Controller()
+    Log.info("Server will be started on '\(controller.url)'.")
+    CloudFoundryDeploymentTracker(repositoryURL: "https://github.com/IBM-Bluemix/Kitura-Starter.git", codeVersion: nil).track()
+    Kitura.addHTTPServer(onPort: controller.port, with: controller.router)
+    // Start Kitura-Starter server
+    Kitura.run()
 } catch let error {
-  Log.error(error.localizedDescription)
-  Log.error("Oops... something went wrong. Server did not start!")
+    Log.error(error.localizedDescription)
+    Log.error("Oops... something went wrong. Server did not start!")
+}
+
+public func getEnvironmentVar(_ name: String) -> String? {
+    guard let rawValue = getenv(name) else { return nil }
+    return String(utf8String: rawValue)
 }
