@@ -31,8 +31,7 @@ do {
     HeliumLogger.use(logLevel)
     
     Log.info("Server will be started on '\(controller.url)'.")
-    Log.info("VCAP_APP_HOST: 【\(Environment.get(.appHost))】")
-    
+   
     CloudFoundryDeploymentTracker(
         repositoryURL: "https://github.com/IBM-Bluemix/Kitura-Starter.git",
         codeVersion: nil).track()
