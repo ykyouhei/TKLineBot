@@ -33,6 +33,7 @@ public class LineBotServer: RouterMiddleware {
     
     // MARK: - Private Method
 
+    // TODO: 受け取ったメッセージのRouting
     private func routeEvent(eventJSON: JSON) {
         guard let type      = eventJSON["type"].string,
               let eventType = EventType(rawValue: type) else {

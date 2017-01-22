@@ -19,28 +19,28 @@ import SwiftyJSON
 import LoggerAPI
 import CloudFoundryEnv
 
-/// ルーティングを設定する
+/// WebServerのRoutingを行う
 public class Controller {
-
-  let router: Router
-  let appEnv: AppEnv
-
-  var port: Int {
-    get { return appEnv.port }
-  }
-
-  var url: String {
-    get { return appEnv.url }
-  }
-
-  init() throws {
-    appEnv = try CloudFoundryEnv.getAppEnv()
-
-    // All web apps need a Router instance to define routes
-    router = Router()
-
-    router.post("/line/webhook", middleware: LineBotServer())
     
-  }
-
+    let router: Router
+    let appEnv: AppEnv
+    
+    var port: Int {
+        get { return appEnv.port }
+    }
+    
+    var url: String {
+        get { return appEnv.url }
+    }
+    
+    init() throws {
+        appEnv = try CloudFoundryEnv.getAppEnv()
+        
+        // All web apps need a Router instance to define routes
+        router = Router()
+        
+        router.post("/line/webhook", middleware: LineBotServer())
+        
+    }
+    
 }
