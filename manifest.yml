@@ -1,10 +1,10 @@
 applications:
 - path: .
-  memory: 896M
+  memory: 512M
   instances: 1
   domain: mybluemix.net
   name: TKLineBot
   host: TKLineBot
-  disk_quota: 2048M
+  disk_quota: 1024M
   buildpack: swift_buildpack
   command: Kitura-Starter
