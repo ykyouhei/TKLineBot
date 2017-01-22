@@ -9,10 +9,10 @@
 import Foundation
 import SwiftyJSON
 
-
 /// メッセージが送信されたことを示すEventObjectです
 /// このイベントは返信可能です
-public struct MessageEvent<T: MessageProtocol>: LineWookEvent, Replyable {
+/// https://devdocs.line.me/ja/#webhook-event-object
+public struct MessageEvent<T: MessageProtocol>: LineWookEvent, Replyable, CustomStringConvertible {
     
     public let replyToken: String
     
@@ -31,7 +31,8 @@ public struct MessageEvent<T: MessageProtocol>: LineWookEvent, Replyable {
     
 }
 
-public enum MessageType: String {
+/// Webhookから通知されるメッセージ種別
+public enum MessageEventType: String {
     case text     = "text"
     case image    = "image"
     case video    = "video"

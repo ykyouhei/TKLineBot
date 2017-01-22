@@ -52,14 +52,14 @@ public class LineBotServer: RouterMiddleware {
     
     private func routeMessageEvent(eventJSON: JSON) {
         guard let messageTypeRaw = eventJSON["message"]["type"].string,
-              let messageType    = MessageType(rawValue: messageTypeRaw) else {
+              let messageType    = MessageEventType(rawValue: messageTypeRaw) else {
                 return
         }
         
         switch messageType {
         case .text:
             let textMessageEvent = MessageEvent<TextMessage>(json: eventJSON)
-            Log.debug("TextMessageEvent: \(textMessageEvent)")
+            parrotReply(textMessageEvent: textMessageEvent)
             
         case .image:    break
         case .video:    break
