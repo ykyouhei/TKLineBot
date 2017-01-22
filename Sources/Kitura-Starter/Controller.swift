@@ -19,6 +19,7 @@ import SwiftyJSON
 import LoggerAPI
 import CloudFoundryEnv
 
+/// ルーティングを設定する
 public class Controller {
 
   let router: Router
@@ -38,45 +39,8 @@ public class Controller {
     // All web apps need a Router instance to define routes
     router = Router()
 
-    // Serve static content from "public"
-    router.all("/", middleware: StaticFileServer())
-
-    // Basic GET request
-    router.get("/hello", handler: getHello)
-
-    // Basic POST request
-    router.post("/hello", handler: postHello)
-
-    // JSON Get request
-    router.get("/json", handler: getJSON)
-  }
-
-  public func getHello(request: RouterRequest, response: RouterResponse, next: @escaping () -> Void) throws {
-    Log.debug("GET - /hello route handler...")
-    response.headers["Content-Type"] = "text/plain; charset=utf-8"
-    try response.status(.OK).send("Hello from Kitura-Starter!").end()
-  }
-
-  public func postHello(request: RouterRequest, response: RouterResponse, next: @escaping () -> Void) throws {
-    Log.debug("POST - /hello route handler...")
-    response.headers["Content-Type"] = "text/plain; charset=utf-8"
-    if let name = try request.readString() {
-      try response.status(.OK).send("Hello \(name), from Kitura-Starter!").end()
-    } else {
-      try response.status(.OK).send("Kitura-Starter received a POST request!").end()
-    }
-  }
-
-  public func getJSON(request: RouterRequest, response: RouterResponse, next: @escaping () -> Void) throws {
-    Log.debug("GET - /json route handler...")
-    response.headers["Content-Type"] = "application/json; charset=utf-8"
-    var jsonResponse = JSON([:])
-    jsonResponse["framework"].stringValue = "Kitura"
-    jsonResponse["applicationName"].stringValue = "Kitura-Starter"
-    jsonResponse["company"].stringValue = "IBM"
-    jsonResponse["organization"].stringValue = "Swift @ IBM"
-    jsonResponse["location"].stringValue = "Austin, Texas"
-    try response.status(.OK).send(json: jsonResponse).end()
+    router.post("/line/webhook", middleware: LineBotServer())
+    
   }
 
 }
