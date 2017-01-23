@@ -39,7 +39,7 @@ public extension GitHubAPI {
 
 public extension GitHubAPI {
     
-    public struct User {
+    public struct User: CustomStringConvertible {
         
         public let login: String
         public let url: URL

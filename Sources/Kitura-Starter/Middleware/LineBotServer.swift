@@ -10,6 +10,7 @@ import Foundation
 import Kitura
 import LoggerAPI
 import SwiftyJSON
+import Regex
 
 /// LineのWebHookを受け取るサーバ
 public class LineBotServer: RouterMiddleware {
@@ -60,7 +61,12 @@ public class LineBotServer: RouterMiddleware {
         switch messageType {
         case .text:
             let textMessageEvent = MessageEvent<TextMessage>(json: eventJSON)
-            parrotReply(textMessageEvent: textMessageEvent)
+            let text = textMessageEvent.messageType.text
+            
+            switch text {
+            default:
+                parrotReply(textMessageEvent: textMessageEvent)
+            }
             
         case .image:    break
         case .video:    break
