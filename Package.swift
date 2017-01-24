@@ -27,6 +27,7 @@ let package = Package(
       .Package(url: "https://github.com/IBM-Swift/Swift-cfenv.git", majorVersion: 2, minor: 0),
       .Package(url: "https://github.com/IBM-Bluemix/cf-deployment-tracker-client-swift.git", majorVersion: 1, minor: 0),
       .Package(url: "https://github.com/antitypical/Result.git", majorVersion: 3),
-      .Package(url: "https://github.com/IBM-Swift/Kitura-Request.git", majorVersion: 0)
+      .Package(url: "https://github.com/IBM-Swift/Kitura-Request.git", majorVersion: 0),
+      .Package(url: "https://github.com/crossroadlabs/Regex.git", Version(1, 0, 0, prereleaseIdentifiers: ["alpha.1"]))
     ],
     exclude: ["Makefile", "Package-Builder"])
