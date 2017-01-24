@@ -18,6 +18,7 @@ import Kitura
 import SwiftyJSON
 import LoggerAPI
 import CloudFoundryEnv
+import Result
 
 /// WebServerのRoutingを行う
 public class Controller {
@@ -40,7 +41,6 @@ public class Controller {
         router = Router()
         
         router.post("/line/webhook", middleware: LineBotServer())
-        
     }
     
 }

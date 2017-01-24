@@ -65,7 +65,7 @@ public class LineBotServer: RouterMiddleware {
             
             switch text {
             default:
-                parrotReply(textMessageEvent: textMessageEvent)
+                dialogueReply(textMessageEvent: textMessageEvent)
             }
             
         case .image:    break
