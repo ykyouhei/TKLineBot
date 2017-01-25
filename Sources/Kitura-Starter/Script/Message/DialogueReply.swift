@@ -9,6 +9,7 @@
 import Foundation
 import Result
 import LoggerAPI
+import then
 
 /// 対話APIの結果を返信する
 ///
@@ -17,32 +18,18 @@ func dialogueReply(textMessageEvent: MessageEvent<TextMessage>) {
     
     let dialogueRequest = DocomoAPI.DialogueRequest(utt: textMessageEvent.messageType.text)
     
-    WebAPIClient().send(request: dialogueRequest) { result in
-        switch result {
-        case .success(let dialogue):
-            let replyMessage = SendableText(text: dialogue.utt ?? "")
-        
-            let replyRequest = LineAPI.ReplyMessageRequest(
-                replyToken: textMessageEvent.replyToken,
-                messages: [replyMessage])
-            
-            WebAPIClient().send(request: replyRequest) { result in
-                switch result {
-                case .success:
-                    Log.debug("Success: \(replyRequest)")
-                    
-                case .failure(let error):
-                    Log.error("Error: \(error)")
-                }
-            }
-            
-        case .failure(let error):
-            Log.error("\(error)")
-        }
+    let sendReply: (_ dialogueResponse: DocomoAPI.DialogueResponse) -> Promise<EmptyResponse> = {
+        let replyMessage = SendableText(text: $0.utt ?? "")
+        let replyRequest = LineAPI.ReplyMessageRequest(
+            replyToken: textMessageEvent.replyToken,
+            messages: [replyMessage])
+        return WebAPIClient().send(request: replyRequest)
     }
     
-    
-    
-    
+    WebAPIClient()
+        .send(request: dialogueRequest)
+        .then(sendReply)
+        .onError(Log.printError)
+        .finally{}
     
 }
