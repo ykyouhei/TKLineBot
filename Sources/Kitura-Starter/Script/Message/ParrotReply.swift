@@ -21,7 +21,7 @@ func parrotReply(textMessageEvent: MessageEvent<TextMessage>) {
         messages: [replyMessage])
     
     WebAPIClient()
-        .send(request: replyRequest)
+        .send(replyRequest)
         .onError(Log.printError)
         .finally{}
     

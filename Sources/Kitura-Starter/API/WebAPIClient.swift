@@ -19,7 +19,7 @@ public enum WebAPIClientError: Swift.Error {
 
 public struct WebAPIClient<T: RequestProtocol> {
     
-    public func send(request: T) -> Promise<T.Response> {
+    public func send(_ request: T) -> Promise<T.Response> {
         return Promise { resolve, reject in
             
             let kituraRequest = request.buildURLRequest()

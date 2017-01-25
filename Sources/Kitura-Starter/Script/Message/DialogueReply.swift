@@ -16,18 +16,25 @@ import then
 /// - Parameter textMessageEvent: MessageEvent<TextMessage>
 func dialogueReply(textMessageEvent: MessageEvent<TextMessage>) {
     
-    let dialogueRequest = DocomoAPI.DialogueRequest(utt: textMessageEvent.messageType.text)
+    let getProfileRequest = LineAPI.GetProfileRequest(userId: textMessageEvent.source.id)
+    
+    let sendDialogueRequest: (_ profile: LineAPI.Profile) -> Promise<DocomoAPI.DialogueResponse> = {
+        var dialogueRequest = DocomoAPI.DialogueRequest(utt: textMessageEvent.messageType.text)
+        dialogueRequest.nickname = $0.displayName
+        return WebAPIClient().send(dialogueRequest)
+    }
     
     let sendReply: (_ dialogueResponse: DocomoAPI.DialogueResponse) -> Promise<EmptyResponse> = {
         let replyMessage = SendableText(text: $0.utt ?? "")
         let replyRequest = LineAPI.ReplyMessageRequest(
             replyToken: textMessageEvent.replyToken,
             messages: [replyMessage])
-        return WebAPIClient().send(request: replyRequest)
+        return WebAPIClient().send(replyRequest)
     }
     
     WebAPIClient()
-        .send(request: dialogueRequest)
+        .send(getProfileRequest)
+        .then(sendDialogueRequest)
         .then(sendReply)
         .onError(Log.printError)
         .finally{}
