@@ -20,14 +20,9 @@ func parrotReply(textMessageEvent: MessageEvent<TextMessage>) {
         replyToken: textMessageEvent.replyToken,
         messages: [replyMessage])
     
-    WebAPIClient().send(request: replyRequest) { result in
-        switch result {
-        case .success:
-            Log.debug("Success: \(replyRequest)")
-            
-        case .failure(let error):
-            Log.error("Error: \(error)")
-        }
-    }
+    WebAPIClient()
+        .send(replyRequest)
+        .onError(Log.printError)
+        .finally{}
     
 }

@@ -72,9 +72,14 @@ public extension RequestProtocol {
             encoding: encoding,
             headers: headerFields)
         
-        Log.debug("URL: \(url.absoluteString)")
-        Log.debug("Parameters: \(parameters)")
-        Log.debug("Headers: \(headerFields)")
+        let log = [
+            "========= API Request ========",
+            "URL       : \(url.absoluteString)",
+            "Parameters: \(parameters ?? [:])",
+        ].joined(separator: "\n")
+        
+        Log.debug(log)
+            
         
         return request
     }

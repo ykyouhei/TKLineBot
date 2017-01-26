@@ -19,6 +19,14 @@ public enum EventSource {
     case group(groupId: String)
     case room(roomId: String)
     
+    var id: String {
+        switch self {
+        case .user(let id):  return id
+        case .group(let id): return id
+        case .room(let id):  return id
+        }
+    }
+    
     init(json: JSON) {
         let type = json["type"].stringValue
         switch type {

@@ -10,6 +10,7 @@ import Foundation
 import Result
 import KituraRequest
 import LoggerAPI
+import then
 
 public enum WebAPIClientError: Swift.Error {
     case connectionError(Swift.Error)
@@ -18,29 +19,36 @@ public enum WebAPIClientError: Swift.Error {
 
 public struct WebAPIClient<T: RequestProtocol> {
     
-    public func send(request: T, completion: @escaping (Result<T.Response, WebAPIClientError>) -> Void) {
-        
-        let kituraRequest = request.buildURLRequest()
-        
-        kituraRequest.response { _, response, data, error in
-            let result: Result<T.Response, WebAPIClientError>
+    public func send(_ request: T) -> Promise<T.Response> {
+        return Promise { resolve, reject in
             
-            switch (data, response, error) {
-            case (_, _, let error?):
-                result = .failure(.connectionError(error))
-                
-            case (let data?, let urlResponse?, _):
-                do {
-                    result = .success(try request.parse(data: data, clientResponse: urlResponse))
-                } catch {
-                    result = .failure(.responseError(error))
+            let kituraRequest = request.buildURLRequest()
+            
+            kituraRequest.response { _, response, data, error in
+                switch (data, response, error) {
+                case (_, _, let error?):
+                    reject(WebAPIClientError.connectionError(error))
+                    
+                case (let data?, let urlResponse?, _):
+                    do {
+                        let parsedResponse = try request.parse(data: data, clientResponse: urlResponse)
+                        
+                        let log = [
+                            "======= API Response ======",
+                            "\(parsedResponse)"
+                        ].joined(separator: "\n")
+                        
+                        Log.debug(log)
+                        
+                        resolve(parsedResponse)
+                    } catch let responseError {
+                        reject(WebAPIClientError.responseError(responseError))
+                    }
+                    
+                default:
+                    reject(WebAPIClientError.responseError(ResponseError.nonHTTPURLResponse(response)))
                 }
-                
-            default:
-                result = .failure(.responseError(ResponseError.nonHTTPURLResponse(response)))
             }
-            
-            completion(result)
         }
     }
     
