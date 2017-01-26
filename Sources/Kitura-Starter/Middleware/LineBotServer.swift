@@ -33,6 +33,7 @@ public class LineBotServer: RouterMiddleware {
     
     
     // MARK: - Private Method
+    
 
     // TODO: 受け取ったメッセージのRouting
     private func routeEvent(eventJSON: JSON) {
@@ -41,7 +42,7 @@ public class LineBotServer: RouterMiddleware {
                 return
         }
         
-        Log.info("========== Received \(type) event ==========")
+        Log.info("========= Received \(type) event ==========")
         
         switch eventType {
         case .message:
@@ -61,9 +62,11 @@ public class LineBotServer: RouterMiddleware {
         switch messageType {
         case .text:
             let textMessageEvent = MessageEvent<TextMessage>(json: eventJSON)
-            let text = textMessageEvent.messageType.text
+            let text             = textMessageEvent.messageType.text
             
             switch text {
+            case ".+[?|？]$".r:
+                knowledgeQAReply(textMessageEvent: textMessageEvent)
             default:
                 dialogueReply(textMessageEvent: textMessageEvent)
             }

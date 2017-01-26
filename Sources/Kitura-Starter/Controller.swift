@@ -18,7 +18,7 @@ import Kitura
 import SwiftyJSON
 import LoggerAPI
 import CloudFoundryEnv
-import Result
+import Regex
 
 /// WebServerのRoutingを行う
 public class Controller {
@@ -41,6 +41,39 @@ public class Controller {
         router = Router()
         
         router.post("/line/webhook", middleware: LineBotServer())
+        
+        setupAPISampleRouting()
+    }
+    
+}
+
+
+// MARK: - API Sample
+
+extension Controller {
+    
+    fileprivate func setupAPISampleRouting() {
+        
+        func send<T: RequestProtocol>(request: T, response: RouterResponse) {
+            WebAPIClient()
+                .send(request)
+                .then   { try? response.send("\($0)").send(status: .OK).end() }
+                .onError{ try? response.send("\($0)").send(status: .internalServerError).end() }
+                .finally{}
+        }
+        
+        router.get("/api/docomo/dialogue") { request, response, completion in
+            let q = request.queryParameters
+            let r = DocomoAPI.DialogueRequest(utt: q["utt"] ?? "")
+            send(request: r, response: response)
+        }
+        
+        router.get("/api/docomo/knowledgeQA") { request, response, completion in
+            let q = request.queryParameters
+            let r = DocomoAPI.KnowledgeQARequest(query: q["query"] ?? "")
+            send(request: r, response: response)
+        }
+        
     }
     
 }

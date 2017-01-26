@@ -13,6 +13,9 @@ import SwiftyJSON
 
 public extension DocomoAPI {
     
+    /// https://dev.smt.docomo.ne.jp/?p=docs.api.page&api_name=dialogue&p_name=api_reference#tag01
+    ///
+    /// 雑談対話APIはユーザの自然な発話に対して幅広い会話や「しりとり」を提供するAPIです
     public struct DialogueRequest: DocomoRequest {
         
         // MARK: Types

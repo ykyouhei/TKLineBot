@@ -31,7 +31,16 @@ public struct WebAPIClient<T: RequestProtocol> {
                     
                 case (let data?, let urlResponse?, _):
                     do {
-                        resolve(try request.parse(data: data, clientResponse: urlResponse))
+                        let parsedResponse = try request.parse(data: data, clientResponse: urlResponse)
+                        
+                        let log = [
+                            "======= API Response ======",
+                            "\(parsedResponse)"
+                        ].joined(separator: "\n")
+                        
+                        Log.debug(log)
+                        
+                        resolve(parsedResponse)
                     } catch let responseError {
                         reject(WebAPIClientError.responseError(responseError))
                     }

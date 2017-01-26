@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Result
 import LoggerAPI
 import then
 
@@ -16,13 +15,7 @@ import then
 /// - Parameter textMessageEvent: MessageEvent<TextMessage>
 func dialogueReply(textMessageEvent: MessageEvent<TextMessage>) {
     
-    let getProfileRequest = LineAPI.GetProfileRequest(userId: textMessageEvent.source.id)
-    
-    let sendDialogueRequest: (_ profile: LineAPI.Profile) -> Promise<DocomoAPI.DialogueResponse> = {
-        var dialogueRequest = DocomoAPI.DialogueRequest(utt: textMessageEvent.messageType.text)
-        dialogueRequest.nickname = $0.displayName
-        return WebAPIClient().send(dialogueRequest)
-    }
+    let dialogueRequest = DocomoAPI.DialogueRequest(utt: textMessageEvent.messageType.text)
     
     let sendReply: (_ dialogueResponse: DocomoAPI.DialogueResponse) -> Promise<EmptyResponse> = {
         let replyMessage = SendableText(text: $0.utt ?? "")
@@ -33,8 +26,7 @@ func dialogueReply(textMessageEvent: MessageEvent<TextMessage>) {
     }
     
     WebAPIClient()
-        .send(getProfileRequest)
-        .then(sendDialogueRequest)
+        .send(dialogueRequest)
         .then(sendReply)
         .onError(Log.printError)
         .finally{}
