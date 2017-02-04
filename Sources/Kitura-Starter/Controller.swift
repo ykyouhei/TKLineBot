@@ -86,6 +86,13 @@ extension Controller {
             send(request: r, response: response)
         }
         
+        router.get("/api/line/getContent") { request, response, completion in
+            let q = request.queryParameters
+            let r = LineAPI.GetContentRequest(messageId: q["id"] ?? "")
+            
+            send(request: r, response: response)
+        }
+        
     }
     
 }

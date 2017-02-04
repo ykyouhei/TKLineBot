@@ -24,7 +24,7 @@ public struct WebAPIClient<T: RequestProtocol> {
             
             let kituraRequest = request.buildURLRequest()
             
-            kituraRequest.response { _, response, data, error in
+            kituraRequest.response { r, response, data, error in
                 switch (data, response, error) {
                 case (_, _, let error?):
                     reject(WebAPIClientError.connectionError(error))
