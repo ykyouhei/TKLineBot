@@ -19,6 +19,9 @@ public class Environment {
         case docomoClientId     = "DOCOMO_CLIENT_ID"
         case docomoClientSecret = "DOCOMO_CLIENT_SECRET"
         case docomoAPIKey       = "DOCOMO_API_KEY"
+        case objectstorageUserId    = "OS_USER_ID"
+        case objectstoragePassword  = "OS_PASSWORD"
+        case objectstorageProjectId = "OS_PROJECT_ID"
     }
     
     static func get(_ name: EnvironmentName) -> String {
