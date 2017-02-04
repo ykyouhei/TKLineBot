@@ -59,6 +59,9 @@ public class LineBotServer: RouterMiddleware {
                 return
         }
         
+        Log.info("========= MessageType is \(messageType) ==========")
+        Log.debug("\(eventJSON)")
+        
         switch messageType {
         case .text:
             let textMessageEvent = MessageEvent<TextMessage>(json: eventJSON)
@@ -70,8 +73,11 @@ public class LineBotServer: RouterMiddleware {
             default:
                 dialogueReply(textMessageEvent: textMessageEvent)
             }
+           
+        case .image:
+            let imageMessageEvent = MessageEvent<ImageMessage>(json: eventJSON)
+            storeContent(messageEvent: imageMessageEvent)
             
-        case .image:    break
         case .video:    break
         case .audio:    break
         case .location: break  

@@ -43,6 +43,9 @@ public enum MessageEventType: String {
 
 public protocol MessageProtocol {
     
+    /// メッセージタイプ
+    var type: MessageEventType { get }
+    
     /// メッセージ識別子
     var id: String { get }
     
@@ -51,6 +54,8 @@ public protocol MessageProtocol {
 
 /// イベント送信元から送信されたテキストを表すMessage Objectです
 public struct TextMessage: MessageProtocol {
+    
+    public let type: MessageEventType = .text
 
     public let id: String
     
@@ -68,6 +73,8 @@ public struct TextMessage: MessageProtocol {
 /// Get Content APIにより画像バイナリデータを取得できます
 public struct ImageMessage: MessageProtocol {
     
+    public let type: MessageEventType = .image
+    
     public let id: String
     
     public init(json: JSON) {
@@ -79,6 +86,8 @@ public struct ImageMessage: MessageProtocol {
 /// イベント送信元から送信された動画を表すMessage Objectです
 /// Get Content APIにより動画バイナリデータを取得できます
 public struct VideoMessage: MessageProtocol {
+    
+    public let type: MessageEventType = .video
     
     public let id: String
     
@@ -92,6 +101,8 @@ public struct VideoMessage: MessageProtocol {
 /// Get Content APIにより音声バイナリデータを取得できます
 public struct AudioMessage: MessageProtocol {
     
+    public let type: MessageEventType = .audio
+    
     public let id: String
     
     public init(json: JSON) {
@@ -102,6 +113,8 @@ public struct AudioMessage: MessageProtocol {
 
 /// イベント送信元から送信された位置情報を表すmessage objectです
 public struct LocationMessage: MessageProtocol {
+    
+    public let type: MessageEventType = .location
     
     public let id: String
     
@@ -129,6 +142,8 @@ public struct LocationMessage: MessageProtocol {
 
 /// イベント送信元から送信されたStickerを表すMessage Objectです
 public struct StickerMessage: MessageProtocol {
+    
+    public let type: MessageEventType = .sticker
     
     public let id: String
     
