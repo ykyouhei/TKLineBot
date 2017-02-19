@@ -93,6 +93,13 @@ extension Controller {
             send(request: r, response: response)
         }
         
+        router.get("/api/mitsuno/getMessage") { request, response, completion in
+            let q = request.queryParameters
+            let r = MitsunoAPI.MessageRequest(message: q["message"] ?? "")
+            
+            send(request: r, response: response)
+        }
+        
     }
     
 }
