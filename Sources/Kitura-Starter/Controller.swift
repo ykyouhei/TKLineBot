@@ -44,17 +44,6 @@ public class Controller {
         router.post("/line/webhook", middleware: LineBotServer())
         
         setupAPISampleRouting()
-        
-        // Object Storeのテスト
-        let store = ObjectStorageManager.shared
-        store.connect()
-            .then(store.retrieveContainer(with: .tkbot))
-            .then { container in
-                store.retrieveObject(for: container, name: "testData.txt")
-            }
-            .then{ object in
-            }
-            .finally{}
     }
     
 }

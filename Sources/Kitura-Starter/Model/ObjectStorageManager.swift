@@ -15,12 +15,6 @@ import then
 /// Bluemix Object Strageを管理するクラス
 internal final class ObjectStorageManager {
     
-    // MARK: Types
-    
-    enum ContainerName: String {
-        case tkbot = "tkbot"
-    }
-    
     static let shared = ObjectStorageManager()
     
     private let objectStorage: ObjectStorage
@@ -54,16 +48,35 @@ internal final class ObjectStorageManager {
     
     // MARK: Container
     
-    /// コンテナー情報を取得する
+    /// コンテナー情報を取得する。
     ///
-    /// - Parameter name: コンテナ名
+    /// - Parameter name:        コンテナ名
+    /// - Parameter forceCreate: コンテナが存在しなかった場合に作成するかどうか
     /// - Returns:  Promise<ObjectStorageContainer>
-    func retrieveContainer(with name: ContainerName) -> Promise<ObjectStorageContainer> {
+    func retrieveContainer(with name: String, forceCreate: Bool) -> Promise<ObjectStorageContainer> {
         return Promise { resolve, reject in
-            self.objectStorage.retrieveContainer(name: name.rawValue) { error, container in
+            self.objectStorage.retrieveContainer(name: name) { error, container in
                 if let error = error {
                     Log.error("retrieveContainer error :: \(error)")
-                    reject(error)
+                    
+                    guard forceCreate, error == .NotFound else {
+                        reject(error)
+                        return
+                    }
+                    
+                    // 新規コンテナ作成
+                    self.objectStorage.createContainer(name: name) { createError, container in
+                        if let createError = createError {
+                            Log.error("createContainer error :: \(createError)")
+                            reject(createError)
+                        } else if let container = container {
+                            Log.info("createContainer success :: \(container.name)")
+                            resolve(container)
+                        } else {
+                            reject(ServerError.emptyResponse)
+                        }
+                    }
+                    
                 } else if let container = container {
                     Log.info("retrieveContainer success :: \(container.name)")
                     resolve(container)

@@ -27,7 +27,7 @@ func storeContent<T: MessageProtocol>(messageEvent: MessageEvent<T>) {
         let storage = ObjectStorageManager.shared
         return storage.connect()
             .then{ _ in
-                storage.retrieveContainer(with: .tkbot)
+                storage.retrieveContainer(with: messageEvent.source.id, forceCreate: true)
             }
             .then {
                 storage.storeObject(to: $0, name: contentResponse.suggestedFileName, data: contentResponse.data)
