@@ -11,6 +11,7 @@ import Kitura
 import LoggerAPI
 import SwiftyJSON
 import Regex
+import Dispatch
 
 /// LineのWebHookを受け取るサーバ
 public class LineBotServer: RouterMiddleware {
@@ -24,8 +25,10 @@ public class LineBotServer: RouterMiddleware {
         let json   = JSON.parse(string: jsonString)
         let events = json["events"].arrayValue
         
-        events.forEach {
-            routeEvent(eventJSON: $0)
+        events.forEach { event in
+            DispatchQueue.global().async {
+                self.routeEvent(eventJSON: event)
+            }
         }
     
         try response.status(.OK).end()
