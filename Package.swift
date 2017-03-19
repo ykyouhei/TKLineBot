@@ -30,6 +30,7 @@ let package = Package(
       .Package(url: "https://github.com/IBM-Swift/Kitura-Request.git", majorVersion: 0),
       .Package(url: "https://github.com/crossroadlabs/Regex.git", Version(1, 0, 0, prereleaseIdentifiers: ["alpha.1"])),
       .Package(url: "https://github.com/ykyouhei/bluemix-objectstorage-serversdk-swift.git", majorVersion: 0, minor: 6),
-      .Package(url: "https://github.com/ykyouhei/then", majorVersion: 2)
+      .Package(url: "https://github.com/ykyouhei/then", majorVersion: 2),
+      .Package(url: "https://github.com/JustinM1/S3SignerAWS.git", majorVersion: 1)
     ],
     exclude: ["Makefile", "Package-Builder"])

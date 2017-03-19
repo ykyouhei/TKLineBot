@@ -13,15 +13,22 @@ import LoggerAPI
 public class Environment {
     
     enum EnvironmentName: String {
-        case logLevel           = "LOGLEVEL"
-        case lineAccessToken    = "LINE_CHANNEL_ACCESS_TOKEN"
-        case githubAccessToken  = "GITHUB_ACCESS_TOKEN"
-        case docomoClientId     = "DOCOMO_CLIENT_ID"
-        case docomoClientSecret = "DOCOMO_CLIENT_SECRET"
-        case docomoAPIKey       = "DOCOMO_API_KEY"
+        case logLevel               = "LOGLEVEL"
+        
+        case lineAccessToken        = "LINE_CHANNEL_ACCESS_TOKEN"
+        
+        case githubAccessToken      = "GITHUB_ACCESS_TOKEN"
+        
+        case docomoClientId         = "DOCOMO_CLIENT_ID"
+        case docomoClientSecret     = "DOCOMO_CLIENT_SECRET"
+        case docomoAPIKey           = "DOCOMO_API_KEY"
+        
         case objectstorageUserId    = "OS_USER_ID"
         case objectstoragePassword  = "OS_PASSWORD"
         case objectstorageProjectId = "OS_PROJECT_ID"
+        
+        case s3AccessKey            = "S3_ACCESS_KEY"
+        case s3SecretKey            = "S3_SECRET_KEY"
     }
     
     static func get(_ name: EnvironmentName) -> String {

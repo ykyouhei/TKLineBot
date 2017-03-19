@@ -82,6 +82,12 @@ extension Controller {
             send(request: r, response: response)
         }
         
+        router.get("/api/s3/getObject") { request, response, completion in
+            let q = request.queryParameters
+            let r = S3API.ObjectRequest(fileName: q["fileName"] ?? "",
+                                        s3method: .put(data: "hogefjefaojoijfiawejfijaiojwefiojawioejfioajwioejfioajwojfioajiojiojweai".data(using: .utf8)!))
+            send(request: r, response: response)
+        }
     }
     
 }
