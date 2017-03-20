@@ -27,7 +27,7 @@ func storeContent<T: MessageProtocol>(messageEvent: MessageEvent<T>) {
         let storage = ObjectStorageManager.shared
         return storage.connect()
             .then{ _ in
-                storage.retrieveContainer(with: messageEvent.source.id, forceCreate: true)
+                storage.retrieveContainer(with: "tkbot", forceCreate: true)
             }
             .then {
                 storage.storeObject(to: $0, name: contentResponse.suggestedFileName, data: contentResponse.data)
@@ -35,7 +35,7 @@ func storeContent<T: MessageProtocol>(messageEvent: MessageEvent<T>) {
     }
     
     let sendReply: (_ savedObject: ObjectStorageObject) -> Promise<EmptyResponse> = { savedObject in
-        let text = "\(savedObject.name)として保存されました"
+        let text = "2人のページに画像が保存されたよ！沢山画像送って2人にプレゼントしよう！\nhttps://tanaka-wedding.mybluemix.net/"
         let replyMessage = SendableText(text: text)
         let replyRequest = LineAPI.ReplyMessageRequest(
             replyToken: messageEvent.replyToken,

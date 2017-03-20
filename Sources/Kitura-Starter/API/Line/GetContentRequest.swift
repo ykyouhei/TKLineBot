@@ -60,7 +60,7 @@ public extension LineAPI {
         
         var suggestedFileName: String {
             let ext = MimeType.fileExtension(forMimeType: contentType) ?? "data"
-            return "\(messageId).\(ext)"
+            return "\(Int(Date().timeIntervalSince1970)).\(ext)"
         }
         
     }
