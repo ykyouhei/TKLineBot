@@ -84,7 +84,7 @@ public class LineBotServer: RouterMiddleware {
         switch messageType {
         case .text:     handle(textMessageEvent: MessageEvent<TextMessage>(json: eventJSON))
         case .image:    handle(imageMessageEvent: MessageEvent<ImageMessage>(json: eventJSON))
-        case .video:    break
+        case .video:    storeContent(messageEvent: MessageEvent<VideoMessage>(json: eventJSON))
         case .audio:    break
         case .location: break  
         case .sticker:  break
