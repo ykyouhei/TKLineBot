@@ -17,7 +17,7 @@
 import Kitura
 import SwiftyJSON
 import LoggerAPI
-import CloudFoundryEnv
+import CloudEnvironment
 import Regex
 import BluemixObjectStorage
 
@@ -25,19 +25,16 @@ import BluemixObjectStorage
 public class Controller {
     
     let router: Router
-    let appEnv: AppEnv
+    private let cloudEnv: CloudEnv
     
     var port: Int {
-        get { return appEnv.port }
+        get { return cloudEnv.port }
     }
     
-    var url: String {
-        get { return appEnv.url }
-    }
+    init() {
+        // Get credentials for cloudant db
+        cloudEnv = CloudEnv()
     
-    init() throws {
-        appEnv = try CloudFoundryEnv.getAppEnv()
-        
         // All web apps need a Router instance to define routes
         router = Router()
         
@@ -45,7 +42,6 @@ public class Controller {
         
         setupAPISampleRouting()
     }
-    
 }
 
 

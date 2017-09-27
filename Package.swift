@@ -22,14 +22,13 @@ let package = Package(
       Target(name: "Kitura-Starter", dependencies: [])
     ],
     dependencies: [
-      .Package(url: "https://github.com/IBM-Swift/Kitura.git", majorVersion: 1, minor: 6),
-      .Package(url: "https://github.com/IBM-Swift/HeliumLogger.git", majorVersion: 1, minor: 6),
-      .Package(url: "https://github.com/IBM-Swift/Swift-cfenv.git", majorVersion: 2, minor: 0),
-      .Package(url: "https://github.com/IBM-Bluemix/cf-deployment-tracker-client-swift.git", majorVersion: 1, minor: 0),
+      .Package(url: "https://github.com/IBM-Swift/Kitura.git", majorVersion: 1, minor: 7),
+      .Package(url: "https://github.com/IBM-Swift/CloudEnvironment.git", majorVersion: 4),
+      .Package(url: "https://github.com/IBM-Swift/HeliumLogger.git", majorVersion: 1, minor: 7),
       .Package(url: "https://github.com/antitypical/Result.git", majorVersion: 3),
       .Package(url: "https://github.com/IBM-Swift/Kitura-Request.git", majorVersion: 0),
       .Package(url: "https://github.com/crossroadlabs/Regex.git", Version(1, 0, 0, prereleaseIdentifiers: ["alpha.1"])),
-      .Package(url: "https://github.com/ykyouhei/bluemix-objectstorage-serversdk-swift.git", majorVersion: 0, minor: 6),
+      .Package(url: "https://github.com/ibm-bluemix-mobile-services/bluemix-objectstorage-serversdk-swift.git", majorVersion: 0, minor: 8),
       .Package(url: "https://github.com/ykyouhei/then", majorVersion: 2),
       .Package(url: "https://github.com/JustinM1/S3SignerAWS.git", majorVersion: 1)
     ],

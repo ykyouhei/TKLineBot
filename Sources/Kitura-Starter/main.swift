@@ -15,34 +15,15 @@
 **/
 
 // Kitura-Starter contains examples for creating custom routes.
-import Foundation
-import Kitura
 import LoggerAPI
 import HeliumLogger
-import CloudFoundryEnv
-import CloudFoundryDeploymentTracker
+import Kitura
 
-do {
-    // HeliumLogger disables all buffering on stdout
-    let logLevelRawValue = Int(Environment.get(.logLevel)) ?? 5
-    let logLevel = LoggerMessageType(rawValue: logLevelRawValue) ?? .info
-    let controller = try Controller()
-    
-    HeliumLogger.use(logLevel)
-    
-    Log.info("Server will be started on '\(controller.url)'.")
-   
-    CloudFoundryDeploymentTracker(
-        repositoryURL: "https://github.com/IBM-Bluemix/Kitura-Starter.git",
-        codeVersion: nil).track()
-    
-    Kitura.addHTTPServer(onPort: controller.port, with: controller.router)
-    
-    Kitura.run()
-    
-} catch let error {
-    Log.error(error.localizedDescription)
-    Log.error("Oops... something went wrong. Server did not start!")
-}
-
+// Init logger
+HeliumLogger.use(LoggerMessageType.info)
+// Create controller instance
+let controller = Controller()
+// Start Kitura server
+Kitura.addHTTPServer(onPort: controller.port, with: controller.router)
+Kitura.run()
 
