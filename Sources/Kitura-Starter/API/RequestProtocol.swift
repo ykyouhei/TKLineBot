@@ -63,18 +63,18 @@ public extension RequestProtocol {
     }
     
     public func buildURLRequest() -> Request {
-        let url = path.isEmpty ? baseURL : baseURL.appendingPathComponent(path)
+        let url = baseURL.absoluteString + path
         
         let request = KituraRequest.request(
             method,
-            url.absoluteString,
+            url,
             parameters: parameters,
             encoding: encoding,
             headers: headerFields)
         
         let log = [
             "========= API Request ========",
-            "URL       : \(url.absoluteString)",
+            "URL       : \(url)",
             "Parameters: \(parameters ?? [:])",
         ].joined(separator: "\n")
         
