@@ -1,0 +1,144 @@
+{
+  "autoPin": true,
+  "pins": [
+    {
+      "package": "BluemixObjectStorage",
+      "reason": null,
+      "repositoryURL": "https://github.com/ibm-bluemix-mobile-services/bluemix-objectstorage-serversdk-swift.git",
+      "version": "0.8.0"
+    },
+    {
+      "package": "CCurl",
+      "reason": null,
+      "repositoryURL": "https://github.com/IBM-Swift/CCurl.git",
+      "version": "0.4.1"
+    },
+    {
+      "package": "CLibreSSL",
+      "reason": null,
+      "repositoryURL": "https://github.com/vapor/clibressl.git",
+      "version": "1.0.0"
+    },
+    {
+      "package": "CloudEnvironment",
+      "reason": null,
+      "repositoryURL": "https://github.com/IBM-Swift/CloudEnvironment.git",
+      "version": "4.0.4"
+    },
+    {
+      "package": "CloudFoundryEnv",
+      "reason": null,
+      "repositoryURL": "https://github.com/IBM-Swift/Swift-cfenv.git",
+      "version": "4.0.2"
+    },
+    {
+      "package": "Configuration",
+      "reason": null,
+      "repositoryURL": "https://github.com/IBM-Swift/Configuration.git",
+      "version": "1.0.3"
+    },
+    {
+      "package": "Core",
+      "reason": null,
+      "repositoryURL": "https://github.com/vapor/core.git",
+      "version": "1.1.2"
+    },
+    {
+      "package": "Crypto",
+      "reason": null,
+      "repositoryURL": "https://github.com/vapor/crypto.git",
+      "version": "1.1.0"
+    },
+    {
+      "package": "HeliumLogger",
+      "reason": null,
+      "repositoryURL": "https://github.com/IBM-Swift/HeliumLogger.git",
+      "version": "1.7.1"
+    },
+    {
+      "package": "Kitura",
+      "reason": null,
+      "repositoryURL": "https://github.com/IBM-Swift/Kitura.git",
+      "version": "1.7.9"
+    },
+    {
+      "package": "Kitura-TemplateEngine",
+      "reason": null,
+      "repositoryURL": "https://github.com/IBM-Swift/Kitura-TemplateEngine.git",
+      "version": "1.7.2"
+    },
+    {
+      "package": "Kitura-net",
+      "reason": null,
+      "repositoryURL": "https://github.com/IBM-Swift/Kitura-net.git",
+      "version": "1.7.16"
+    },
+    {
+      "package": "KituraRequest",
+      "reason": null,
+      "repositoryURL": "https://github.com/IBM-Swift/Kitura-Request.git",
+      "version": "0.8.2"
+    },
+    {
+      "package": "LoggerAPI",
+      "reason": null,
+      "repositoryURL": "https://github.com/IBM-Swift/LoggerAPI.git",
+      "version": "1.7.1"
+    },
+    {
+      "package": "Regex",
+      "reason": null,
+      "repositoryURL": "https://github.com/crossroadlabs/Regex.git",
+      "version": "1.0.0"
+    },
+    {
+      "package": "Result",
+      "reason": null,
+      "repositoryURL": "https://github.com/antitypical/Result.git",
+      "version": "3.2.4"
+    },
+    {
+      "package": "S3SignerAWS",
+      "reason": null,
+      "repositoryURL": "https://github.com/JustinM1/S3SignerAWS.git",
+      "version": "1.3.0"
+    },
+    {
+      "package": "SSLService",
+      "reason": null,
+      "repositoryURL": "https://github.com/IBM-Swift/BlueSSLService.git",
+      "version": "0.12.55"
+    },
+    {
+      "package": "SimpleHttpClient",
+      "reason": null,
+      "repositoryURL": "https://github.com/ibm-bluemix-mobile-services/bluemix-simple-http-client-swift.git",
+      "version": "0.7.0"
+    },
+    {
+      "package": "SimpleLogger",
+      "reason": null,
+      "repositoryURL": "https://github.com/ibm-bluemix-mobile-services/bluemix-simple-logger-swift.git",
+      "version": "0.5.0"
+    },
+    {
+      "package": "Socket",
+      "reason": null,
+      "repositoryURL": "https://github.com/IBM-Swift/BlueSocket.git",
+      "version": "0.12.68"
+    },
+    {
+      "package": "SwiftyJSON",
+      "reason": null,
+      "repositoryURL": "https://github.com/IBM-Swift/SwiftyJSON.git",
+      "version": "17.0.0"
+    },
+    {
+      "package": "then",
+      "reason": null,
+      "repositoryURL": "https://github.com/ykyouhei/then",
+      "version": "2.0.3"
+    }
+  ],
+  "version": 1
+}
